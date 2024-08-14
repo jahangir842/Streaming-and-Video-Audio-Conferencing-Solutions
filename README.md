@@ -1,7 +1,5 @@
 # Streaming-and-Video-Audio-Conferencing-Solutions
 
-Let's update the outline to include **Jitsi** and **LiveKit** under the respective sections:
-
 ### Repository Outline: Streaming and Video/Audio Conferencing Solutions
 
 #### 1. **Introduction**
