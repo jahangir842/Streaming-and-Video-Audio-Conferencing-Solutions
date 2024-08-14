@@ -46,36 +46,68 @@ Verify the installation:
 docker-compose --version
 ```
 
-### Step 6: Download the LiveKit Docker Compose File
-Fetch the `docker-compose.yml` file for LiveKit:
+It looks like the specific `docker-compose.yml` file for LiveKit might not be available at the URLs provided earlier. Here's how you can manually create a basic `docker-compose.yml` file for LiveKit:
+
+### Step 1: Create a `docker-compose.yml` File
+
+Manually create the `docker-compose.yml` file using a text editor like `nano`:
 
 ```bash
-curl -O https://raw.githubusercontent.com/livekit/livekit/main/docker-compose.yml
+nano docker-compose.yml
 ```
 
-### Step 7: Start the LiveKit Server
-Use Docker Compose to start LiveKit:
+Then, paste the following content into the file:
+
+```yaml
+version: "3.7"
+
+services:
+  livekit-server:
+    image: livekit/livekit-server:latest
+    ports:
+      - "7880:7880"  # HTTP port
+      - "7881:7881"  # UDP port
+    environment:
+      - LIVEKIT_API_KEY=your_api_key
+      - LIVEKIT_API_SECRET=your_api_secret
+    command: --node-ip your_server_ip
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+```
+
+### Step 2: Save and Exit
+
+- To save the file in `nano`, press `CTRL + X`, then `Y` to confirm, and `Enter` to save.
+
+### Step 3: Run Docker Compose
+
+Now, run Docker Compose to start LiveKit:
 
 ```bash
 sudo docker-compose up -d
 ```
 
-This command pulls the necessary Docker images and starts the LiveKit server.
+This should pull the necessary Docker images (LiveKit and Redis) and start the services.
 
-### Step 8: Verify the Installation
-Check the status of the running Docker containers to ensure LiveKit is running:
+### Step 4: Verify Installation
+
+To ensure that everything is running correctly, check the running Docker containers:
 
 ```bash
 sudo docker ps
 ```
 
-You should see LiveKit listed among the running containers.
+You should see the LiveKit server and Redis containers running.
 
-### Step 9: Access LiveKit
-LiveKit should be accessible via your server's public IP address on port 7880:
+### Step 5: Access LiveKit
+
+You can now access LiveKit via your server's public IP address on port 7880:
 
 ```
 http://your-server-ip:7880
 ```
 
-Replace `your-server-ip` with the actual public IP address of your EC2 instance.
+Replace `your-server-ip` with the actual IP address of your server.
